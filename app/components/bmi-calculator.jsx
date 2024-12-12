@@ -35,10 +35,10 @@ export default function BMICalculator() {
           email: '',
           password: '',
           name: '',
-          Weight: weight,
-          Height: height,
+          Weight:  parseFloat(weight),
+          Height: parseFloat(height),
           Gender: gender,
-          Age: age,
+          Age:parseInt(age),
         }),
       });
 
