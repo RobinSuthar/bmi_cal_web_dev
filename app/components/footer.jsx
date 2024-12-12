@@ -5,8 +5,8 @@ var currentTime = time.getFullYear();
 
 const Footer = () => {
   return (
-    <div className=" bg-white flex  justify-center fixed bottom-0 w-full">
-      <footer className="text-black ">
+    <div className="  flex  justify-center mt-2  bottom-0 w-full">
+      <footer className=" ">
         <p>
           &copy; {currentTime} The French Fries BMI calculator. All rights reserved.
         </p>

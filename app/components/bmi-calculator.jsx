@@ -1,14 +1,23 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function BMICalculator() {
-  const [age, setAge] = useState('');
-  const [height, setHeight] = useState('');
-  const [weight, setWeight] = useState('');
-  const [gender, setGender] = useState('');
+  const [age, setAge] = useState("");
+  const [height, setHeight] = useState("");
+  const [weight, setWeight] = useState("");
+  const [gender, setGender] = useState("");
   const [bmi, setBmi] = useState(null);
-  const [bmiCategory, setBmiCategory] = useState('');
+  const [bmiCategory, setBmiCategory] = useState("");
+  const [dietLink, setDietLink] = useState(""); // Added state for diet link
+
+  // Mapping BMI categories to diet page links
+  const dietPages = {
+    Underweight: "/diet/underweight",
+    "Normal weight": "/diet/normal",
+    Overweight: "/overweight",
+    Obese: "/overweight",
+  };
 
   const handleCalculateBMI = async () => {
     if (!height || !weight || !gender || !age) {
@@ -17,37 +26,42 @@ export default function BMICalculator() {
     }
 
     const heightInMeters = height / 100;
-    const calculatedBMI = (weight / (heightInMeters * heightInMeters)).toFixed(2);
+    const calculatedBMI = (weight / (heightInMeters * heightInMeters)).toFixed(
+      2
+    );
     setBmi(calculatedBMI);
 
-    let category = '';
-    if (calculatedBMI < 18.5) category = 'Underweight';
-    else if (calculatedBMI >= 18.5 && calculatedBMI < 24.9) category = 'Normal weight';
-    else if (calculatedBMI >= 25 && calculatedBMI < 29.9) category = 'Overweight';
-    else category = 'Obese';
+    let category = "";
+    if (calculatedBMI < 18.5) category = "Underweight";
+    else if (calculatedBMI >= 18.5 && calculatedBMI < 24.9)
+      category = "Normal weight";
+    else if (calculatedBMI >= 25 && calculatedBMI < 29.9)
+      category = "Overweight";
+    else category = "Obese";
     setBmiCategory(category);
 
+    // Set corresponding diet link
+    setDietLink(dietPages[category]); // Added logic to set diet link
+
     try {
-      const response = await fetch('/api/user', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email: '',
-          password: '',
-          name: '',
-          Weight:  parseFloat(weight),
+          email: "",
+          password: "",
+          name: "",
+          Weight: parseFloat(weight),
           Height: parseFloat(height),
           Gender: gender,
-          Age:parseInt(age),
+          Age: parseInt(age),
         }),
       });
 
-       // Need to connect to database // Need to connect to database
       if (!response.ok) {
         throw new Error("Failed to save user data");
       }
 
-     
       const result = await response.json();
       console.log("Saved user data:", result);
       alert("Data saved successfully!");
@@ -71,7 +85,9 @@ export default function BMICalculator() {
           }}
         >
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Age</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Age
+            </label>
             <input
               type="number"
               placeholder="Enter your age"
@@ -81,7 +97,9 @@ export default function BMICalculator() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Height (cm)</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Height (cm)
+            </label>
             <input
               type="number"
               placeholder="Enter your height in cm"
@@ -91,7 +109,9 @@ export default function BMICalculator() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Weight (kg)</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Weight (kg)
+            </label>
             <input
               type="number"
               placeholder="Enter your weight in kg"
@@ -101,13 +121,17 @@ export default function BMICalculator() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Gender
+            </label>
             <select
               value={gender}
               onChange={(e) => setGender(e.target.value)}
               className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-              <option value="" disabled>Select your gender</option>
+              <option value="" disabled>
+                Select your gender
+              </option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </select>
@@ -122,7 +146,22 @@ export default function BMICalculator() {
         {bmi && (
           <div className="mt-6 text-center">
             <h2 className="text-xl font-semibold">Your BMI: {bmi}</h2>
-            <p className="text-lg text-gray-700 mt-2">Category: {bmiCategory}</p>
+            <p className="text-lg text-gray-700 mt-2">
+              Category: {bmiCategory}
+            </p>
+            {dietLink && ( // Added conditional rendering for the diet link
+              <div className="mt-4">
+                <p className="text-lg text-gray-800">
+                  We recommend this diet for you:
+                </p>
+                <a
+                  href={dietLink}
+                  className="text-blue-500 underline hover:text-blue-700 transition"
+                >
+                  Get Your Diet Plan
+                </a>
+              </div>
+            )}
           </div>
         )}
       </div>
