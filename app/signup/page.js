@@ -1,81 +1,107 @@
-import Link from 'next/link';
+import Link from "next/link";
 
-export default function signup() {
+export default function Signup() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      {/* Image */}
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100 px-4">
       <img
         src="/french fries dab.jpg"
-        alt="french fries dab"
-        className="w-40 h-40 rounded-3xl mb-6" 
+        alt="French fries dab"
+        className="w-32 h-32 md:w-40 md:h-40 rounded-full mb-6 shadow-lg"
       />
 
-      {/* Sign Up Title */}
-      <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
+      <h1 className="text-3xl font-bold mb-6 text-blue-700 text-center">
+        Create Your Account
+      </h1>
 
-      {/* Sign Up Form */}
-      <form className="flex flex-col gap-4 w-1/3 bg-white p-8 rounded-lg shadow-lg">
-      
-        {/* Name */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-          <input
-            type="text"
-            placeholder="Enter your full name"
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
+      <main className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
+        <form className="flex flex-col gap-6">
+          <div>
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Full Name
+            </label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Enter your full name"
+              aria-label="Full Name"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
 
-        {/* Email*/}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Email Address
+            </label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              aria-label="Email Address"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
 
-        {/* Password*/}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Enter your password"
+              aria-label="Password"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
 
-        {/* Confirm Password */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
-          <input
-            type="password"
-            placeholder="Confirm your password"
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
+          <div>
+            <label
+              htmlFor="confirm-password"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Confirm Password
+            </label>
+            <input
+              id="confirm-password"
+              type="password"
+              placeholder="Confirm your password"
+              aria-label="Confirm Password"
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
 
-        {/* Sign Up Button */}
-        <button
-          type="button"
-          className="w-full bg-blue-500 text-white p-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition"
-        >
-          Sign Up
-        </button>
-      </form>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white p-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition"
+          >
+            Sign Up
+          </button>
+        </form>
 
-      {/* Go to Login Page */}
-      <p className="mt-4">
-        Already have an account?{' '}
-        <Link href="/login">
-          <span className="text-blue-500 cursor-pointer">Log In</span>
-        </Link>
-      </p>
+        <p className="mt-4 text-center text-gray-600">
+          Already have an account?{" "}
+          <Link href="/login">
+            <span className="text-blue-500 font-medium cursor-pointer hover:underline">
+              Log In
+            </span>
+          </Link>
+        </p>
+      </main>
 
-      {/*Guest Button */}
       <Link href="/welcome">
-        <button className="mt-6 p-2 bg-green-500 text-white rounded">
+        <button
+          className="mt-6 px-4 py-2 bg-green-500 text-white rounded-lg text-sm font-medium shadow-md hover:bg-green-600 transition"
+          aria-label="Continue as Guest"
+        >
           Continue as Guest
         </button>
       </Link>
